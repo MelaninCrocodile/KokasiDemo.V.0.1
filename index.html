@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ko'Kasi Hotspot - Connecting Communities</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <img src="img/kokasi.png">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Mission</a></li>
+                <li><a href="#coverage">Coverage</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Connecting Communities</h1>
+                <p>Smart Wi-Fi Hotspots empowering townships across South Africa through reliable wireless technology</p>
+                <a href="#services" class="cta-button">Find Your Hotspot</a>
+            </div>
+            <div class="wifi-icon">
+                 <img src="img/kokasi.png">
+            </div>
+        </section>
+
+        <section class="main-services scroll-animate">
+            <div class="services-container">
+                <h2 class="section-title">SERVICES</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <div class="service-icon">📶</div>
+                        </div>
+                        <h3 class="service-title">Wi-Fi Zone</h3>
+                        <p class="service-subtitle">Wi-Fi Hotspots</p>
+                        <p class="service-description">Find your nearest Ko'Kasi Hotspot</p>
+                        <a href="#coverage" class="service-button">Wi-Fi Locator</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <div class="service-icon">🏠</div>
+                        </div>
+                        <h3 class="service-title">Smart Residential Wi-Fi™</h3>
+                        <p class="service-subtitle">Transform your building</p>
+                        <p class="service-description">Transform your building into a Ko'Kasi Hotspot zone!</p>
+                        <a href="#contact" class="service-button">Learn More</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <div class="service-icon">🚛</div>
+                        </div>
+                        <h3 class="service-title">Wi-Fi Truck™</h3>
+                        <p class="service-subtitle">Mobile Solutions</p>
+                        <p class="service-description">Pop-Up Wi-Fi for special events & functions</p>
+                        <a href="#contact" class="service-button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <h2 class="section-title scroll-animate">Our Mission</h2>
+            <div class="features-grid">
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Smart Wi-Fi Hotspots</h3>
+                    <p>High-speed internet access points strategically placed throughout township communities for maximum coverage and reliability.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">🏘️</div>
+                    <h3>Community Focus</h3>
+                    <p>Dedicated to serving township communities with affordable, accessible internet solutions that bridge the digital divide.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Reliable Connection</h3>
+                    <p>100% commitment to client satisfaction with consistent, fast internet connectivity you can depend on.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">📱</div>
+                    <h3>Easy Access</h3>
+                    <p>Simple connection process with user-friendly interfaces designed for seamless internet access on any device.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">🔄</div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock technical support and maintenance to ensure uninterrupted service for our communities.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">💡</div>
+                    <h3>Innovation</h3>
+                    <p>Continuously innovating iKasi with cutting-edge wireless technology and digital solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="mission scroll-animate">
+                <h2>About Us</h2>
+                <p>Founded in June 2012 in Vosloorus, Gauteng by Martin Letsie, Ko'Kasi Hotspot has grown from strength to strength to serve townships all across South Africa. Our mission is to empower our communities through wireless and digital technology, becoming a reliable and trusted W-ISP that bridges the digital divide and creates opportunities for growth and connection.</p>
+            </div>
+        </section>
+
+        <section class="section" id="coverage">
+            <div class="hotspot-finder scroll-animate">
+                <h2 class="section-title">WiFi Hotspot Locator</h2>
+                <p>Find and connect to Ko'Kasi Hotspot WiFi locations near you</p>
+                
+                <div class="locator-container">
+                    <div class="search-controls">
+                        <input type="text" class="search-input" id="locationSearch" placeholder="Enter your location or area...">
+                        <button class="location-button" onclick="getCurrentLocation()">📍 Use My Location</button>
+                        
+                        <div class="hotspot-list" id="hotspotList">
+                            <!-- Hotspot items will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="map-container">
+                        <div class="map-grid"></div>
+                            <div class="map-markers" id="mapMarkers">
+                                <!-- Map markers will be populated here -->
+                            </div>
+                            <div class="map-info">
+                                <div class="map-icon">🗺️</div>
+                                <p>Interactive Hotspot Map</p>
+                                <p style="font-size: 0.9rem; margin-top: 1rem;">Click markers to view hotspot details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-dot legend-active"></div>
+                        <span>Active Hotspot</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot legend-maintenance"></div>
+                        <span>Under Maintenance</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot legend-selected"></div>
+                        <span>Selected</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <section class="contact-section">
+            <div class="contact-container">
+                <h2 class="section-title">Contact Us</h2>
+                <p style="text-align: center; font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
+                    Get in touch with us - we're here to help connect your community
+                </p>
+                
+                <div class="contact-grid">
+                    <div class="contact-methods">
+                        <h3 style="margin-bottom: 2rem; color: #ffffff; font-size: 1.5rem;">Connect With Us</h3>
+                        
+                        <a href="https://wa.me/27628096750" class="contact-method whatsapp" target="_blank">
+                            <div class="contact-icon whatsapp">💬</div>
+                            <div class="contact-info">
+                                <h3>WhatsApp Chatbot</h3>
+                                <p>Get instant support 24/7</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://instagram.com/kokasihotspot" class="contact-method" target="_blank">
+                            <div class="contact-icon instagram">📷</div>
+                            <div class="contact-info">
+                                <h3>Instagram</h3>
+                                <p>Follow us for updates & community stories</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://facebook.com/kokasihotspot" class="contact-method" target="_blank">
+                            <div class="contact-icon facebook">📘</div>
+                            <div class="contact-info">
+                                <h3>Facebook</h3>
+                                <p>Join our community discussions</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://tiktok.com/@kokasihotspot" class="contact-method" target="_blank">
+                            <div class="contact-icon tiktok">🎵</div>
+                            <div class="contact-info">
+                                <h3>TikTok</h3>
+                                <p>Watch our latest content & tips</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3 style="margin-bottom: 2rem; color: #ffffff; font-size: 1.5rem;">Send Us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="query">Your Query</label>
+                                <textarea id="query" name="query" class="form-input form-textarea" placeholder="How can we help you? Tell us about your query or request..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="footer-content" style="padding: 2rem 0; border-top: 1px solid rgba(255, 0, 0, 0.2);">
+            <p>&copy; 2025 Ko'Kasi Hotspot. Empowering communities through connectivity.</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">Let's Innovate iKasi</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>
+                            

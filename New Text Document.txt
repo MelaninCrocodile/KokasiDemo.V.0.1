@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ko'Kasi Hotspot - Connecting Communities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* WiFi Animation */
+        .wifi-icon {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            opacity: 0.1;
+            font-size: 15rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.3; transform: translateY(-50%) scale(1.1); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Services Section */
+        .main-services {
+            padding: 6rem 5% 4rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .service-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            border-color: #667eea;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-subtitle {
+            font-size: 1rem;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .service-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.85;
+            margin-bottom: 2rem;
+        }
+
+        .service-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .service-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 5%;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-methods {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-method:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+        }
+
+        .contact-method.whatsapp {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05));
+            border: 1px solid rgba(37, 211, 102, 0.2);
+        }
+
+        .contact-method.whatsapp:hover {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0.1));
+            transform: translateX(10px) scale(1.02);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            flex-shrink: 0;
+        }
+
+        .contact-icon.whatsapp {
+            background: linear-gradient(135deg, #25d366, #20b858);
+        }
+
+        .contact-icon.instagram {
+            background: linear-gradient(135deg, #e4405f, #833ab4, #f77737);
+        }
+
+        .contact-icon.facebook {
+            background: #1877f2;
+        }
+
+        .contact-icon.tiktok {
+            background: linear-gradient(135deg, #000000, #ff0050);
+        }
+
+        .contact-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .contact-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .main-services {
+                padding: 4rem 3%;
+            }
+            
+            .contact-section {
+                padding: 4rem 3%;
+            }
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Mission Section */
+        .mission {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px;
+            padding: 4rem;
+            margin: 4rem 0;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mission h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        .mission p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Hotspot Finder */
+        .hotspot-finder {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 4rem;
+            border-radius: 30px;
+            margin: 4rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .locator-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+
+        .search-controls {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .location-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .location-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .hotspot-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .hotspot-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hotspot-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .hotspot-item.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .hotspot-name {
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .hotspot-address {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .hotspot-distance {
+            font-size: 0.8rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .hotspot-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .status-active {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .status-maintenance {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            height: 500px;
+            position: relative;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .map-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse-marker 2s infinite;
+        }
+
+        .map-marker:hover {
+            transform: scale(1.2);
+            background: #764ba2;
+        }
+
+        .map-marker.selected {
+            background: #2ecc71;
+            transform: scale(1.3);
+        }
+
+        @keyframes pulse-marker {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        .map-info {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .map-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+
+        .legend-active { background: #667eea; }
+        .legend-maintenance { background: #f1c40f; }
+        .legend-selected { background: #2ecc71; }
+
+        @media (max-width: 1024px) {
+            .locator-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .section {
+                padding: 4rem 3%;
+            }
+            
+            .mission, .hotspot-finder {
+                padding: 2rem;
+                margin: 2rem 0;
+            }
+            
+            .wifi-icon {
+                display: none;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <nav>
+            <a href="#" class="logo">Ko'Kasi Hotspot</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#coverage">Coverage</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Connecting Communities</h1>
+                <p>Smart Wi-Fi Hotspots empowering townships across South Africa through reliable wireless technology</p>
+                <a href="#services" class="cta-button">Find Your Hotspot</a>
+            </div>
+            <div class="wifi-icon">📶</div>
+        </section>
+
+        <section class="main-services scroll-animate">
+            <div class="services-container">
+                <h2 class="section-title">SERVICES</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <div class="service-icon">📶</div>
+                        </div>
+                        <h3 class="service-title">Wi-Fi Zone</h3>
+                        <p class="service-subtitle">Wi-Fi Hotspots</p>
+                        <p class="service-description">Find your nearest Ko'Kasi Hotspot</p>
+                        <a href="#coverage" class="service-button">Wi-Fi Locator</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <div class="service-icon">🏠</div>
+                        </div>
+                        <h3 class="service-title">Smart Residential Wi-Fi™</h3>
+                        <p class="service-subtitle">Transform your building</p>
+                        <p class="service-description">Transform your building into a Ko'Kasi Hotspot zone!</p>
+                        <a href="#contact" class="service-button">Learn More</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon-container">
+                            <div class="service-icon">🚛</div>
+                        </div>
+                        <h3 class="service-title">Wi-Fi Truck™</h3>
+                        <p class="service-subtitle">Mobile Solutions</p>
+                        <p class="service-description">Pop-Up Wi-Fi for special events & functions</p>
+                        <a href="#contact" class="service-button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <h2 class="section-title scroll-animate">Our Services</h2>
+            <div class="features-grid">
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Smart Wi-Fi Hotspots</h3>
+                    <p>High-speed internet access points strategically placed throughout township communities for maximum coverage and reliability.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">🏘️</div>
+                    <h3>Community Focus</h3>
+                    <p>Dedicated to serving township communities with affordable, accessible internet solutions that bridge the digital divide.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Reliable Connection</h3>
+                    <p>100% commitment to client satisfaction with consistent, fast internet connectivity you can depend on.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">📱</div>
+                    <h3>Easy Access</h3>
+                    <p>Simple connection process with user-friendly interfaces designed for seamless internet access on any device.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">🔄</div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock technical support and maintenance to ensure uninterrupted service for our communities.</p>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">💡</div>
+                    <h3>Innovation</h3>
+                    <p>Continuously innovating iKasi with cutting-edge wireless technology and digital solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="mission scroll-animate">
+                <h2>Our Mission</h2>
+                <p>Founded in June 2012 in Vosloorus, Gauteng by Martin Letsie, Ko'Kasi Hotspot has grown from strength to strength to serve townships all across South Africa. Our mission is to empower our communities through wireless and digital technology, becoming a reliable and trusted W-ISP that bridges the digital divide and creates opportunities for growth and connection.</p>
+            </div>
+        </section>
+
+        <section class="section" id="coverage">
+            <div class="hotspot-finder scroll-animate">
+                <h2 class="section-title">WiFi Hotspot Locator</h2>
+                <p>Find and connect to Ko'Kasi Hotspot WiFi locations near you</p>
+                
+                <div class="locator-container">
+                    <div class="search-controls">
+                        <input type="text" class="search-input" id="locationSearch" placeholder="Enter your location or area...">
+                        <button class="location-button" onclick="getCurrentLocation()">📍 Use My Location</button>
+                        
+                        <div class="hotspot-list" id="hotspotList">
+                            <!-- Hotspot items will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <div class="map-grid"></div>
+                            <div class="map-markers" id="mapMarkers">
+                                <!-- Map markers will be populated here -->
+                            </div>
+                            <div class="map-info">
+                                <div class="map-icon">🗺️</div>
+                                <p>Interactive Hotspot Map</p>
+                                <p style="font-size: 0.9rem; margin-top: 1rem;">Click markers to view hotspot details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-dot legend-active"></div>
+                        <span>Active Hotspot</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot legend-maintenance"></div>
+                        <span>Under Maintenance</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot legend-selected"></div>
+                        <span>Selected</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <section class="contact-section">
+            <div class="contact-container">
+                <h2 class="section-title">Contact Us</h2>
+                <p style="text-align: center; font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
+                    Get in touch with us - we're here to help connect your community
+                </p>
+                
+                <div class="contact-grid">
+                    <div class="contact-methods">
+                        <h3 style="margin-bottom: 2rem; color: #ffffff; font-size: 1.5rem;">Connect With Us</h3>
+                        
+                        <a href="https://wa.me/27123456789?text=Hi,%20I%20need%20help%20with%20Ko'Kasi%20Hotspot" class="contact-method whatsapp" target="_blank">
+                            <div class="contact-icon whatsapp">💬</div>
+                            <div class="contact-info">
+                                <h3>WhatsApp Chatbot</h3>
+                                <p>Get instant support 24/7</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://instagram.com/kokasihotspot" class="contact-method" target="_blank">
+                            <div class="contact-icon instagram">📷</div>
+                            <div class="contact-info">
+                                <h3>Instagram</h3>
+                                <p>Follow us for updates & community stories</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://facebook.com/kokasihotspot" class="contact-method" target="_blank">
+                            <div class="contact-icon facebook">📘</div>
+                            <div class="contact-info">
+                                <h3>Facebook</h3>
+                                <p>Join our community discussions</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://tiktok.com/@kokasihotspot" class="contact-method" target="_blank">
+                            <div class="contact-icon tiktok">🎵</div>
+                            <div class="contact-info">
+                                <h3>TikTok</h3>
+                                <p>Watch our latest content & tips</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3 style="margin-bottom: 2rem; color: #ffffff; font-size: 1.5rem;">Send Us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="query">Your Query</label>
+                                <textarea id="query" name="query" class="form-input form-textarea" placeholder="How can we help you? Tell us about your query or request..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="footer-content" style="padding: 2rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p>&copy; 2025 Ko'Kasi Hotspot. Empowering communities through connectivity.</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">Let's Innovate iKasi</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Sample hotspot data (in a real implementation, this would come from an API)
+        const hotspots = [
+            {
+                id: 1,
+                name: "Vosloorus Shopping Centre",
+                address: "123 Main Street, Vosloorus, Gauteng",
+                distance: "0.5 km",
+                status: "active",
+                coordinates: { x: 20, y: 15 }
+            },
+            {
+                id: 2,
+                name: "Katlehong Community Center",
+                address: "456 Community Road, Katlehong, Gauteng",
+                distance: "1.2 km",
+                status: "active",
+                coordinates: { x: 40, y: 30 }
+            },
+            {
+                id: 3,
+                name: "Thokoza Library",
+                address: "789 Library Street, Thokoza, Gauteng",
+                distance: "2.1 km",
+                status: "maintenance",
+                coordinates: { x: 60, y: 25 }
+            },
+            {
+                id: 4,
+                name: "Alberton Mall",
+                address: "321 Mall Avenue, Alberton, Gauteng",
+                distance: "3.5 km",
+                status: "active",
+                coordinates: { x: 80, y: 45 }
+            },
+            {
+                id: 5,
+                name: "Germiston Stadium",
+                address: "654 Stadium Drive, Germiston, Gauteng",
+                distance: "4.2 km",
+                status: "active",
+                coordinates: { x: 30, y: 60 }
+            },
+            {
+                id: 6,
+                name: "Boksburg Central",
+                address: "987 Central Plaza, Boksburg, Gauteng",
+                distance: "5.1 km",
+                status: "active",
+                coordinates: { x: 70, y: 70 }
+            }
+        ];
+
+        let selectedHotspot = null;
+
+        // Initialize the hotspot locator
+        function initializeHotspotLocator() {
+            displayHotspots(hotspots);
+            createMapMarkers(hotspots);
+        }
+
+        // Display hotspots in the list
+        function displayHotspots(hotspotsToShow) {
+            const hotspotList = document.getElementById('hotspotList');
+            hotspotList.innerHTML = '';
+
+            hotspotsToShow.forEach(hotspot => {
+                const hotspotItem = document.createElement('div');
+                hotspotItem.className = 'hotspot-item';
+                hotspotItem.onclick = () => selectHotspot(hotspot.id);
+                
+                hotspotItem.innerHTML = `
+                    <div class="hotspot-name">${hotspot.name}</div>
+                    <div class="hotspot-address">${hotspot.address}</div>
+                    <div class="hotspot-distance">${hotspot.distance} away</div>
+                    <div class="hotspot-status status-${hotspot.status}">
+                        ${hotspot.status === 'active' ? '🟢 Active' : '🟡 Under Maintenance'}
+                    </div>
+                `;
+                
+                hotspotList.appendChild(hotspotItem);
+            });
+        }
+
+        // Create map markers
+        function createMapMarkers(hotspotsToShow) {
+            const mapMarkers = document.getElementById('mapMarkers');
+            mapMarkers.innerHTML = '';
+
+            hotspotsToShow.forEach(hotspot => {
+                const marker = document.createElement('div');
+                marker.className = 'map-marker';
+                marker.id = `marker-${hotspot.id}`;
+                marker.style.left = `${hotspot.coordinates.x}%`;
+                marker.style.top = `${hotspot.coordinates.y}%`;
+                marker.onclick = () => selectHotspot(hotspot.id);
+                marker.title = hotspot.name;
+                
+                if (hotspot.status === 'maintenance') {
+                    marker.style.background = '#f1c40f';
+                }
+                
+                mapMarkers.appendChild(marker);
+            });
+        }
+
+        // Select a hotspot
+        function selectHotspot(hotspotId) {
+            // Remove previous selection
+            document.querySelectorAll('.hotspot-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelectorAll('.map-marker').forEach(marker => {
+                marker.classList.remove('selected');
+            });
+
+            // Add selection to current hotspot
+            const hotspotItems = document.querySelectorAll('.hotspot-item');
+            const hotspotIndex = hotspots.findIndex(h => h.id === hotspotId);
+            if (hotspotIndex !== -1) {
+                hotspotItems[hotspotIndex].classList.add('selected');
+                document.getElementById(`marker-${hotspotId}`).classList.add('selected');
+                selectedHotspot = hotspots[hotspotIndex];
+                
+                // Scroll to selected item
+                hotspotItems[hotspotIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Get current location
+        function getCurrentLocation() {
+            const button = document.querySelector('.location-button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '📍 Getting Location...';
+            button.disabled = true;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // Simulate finding nearby hotspots
+                        setTimeout(() => {
+                            button.innerHTML = '✅ Location Found';
+                            // Filter hotspots by distance (simulate)
+                            const nearbyHotspots = hotspots.slice(0, 3);
+                            displayHotspots(nearbyHotspots);
+                            createMapMarkers(nearbyHotspots);
+                            
+                            setTimeout(() => {
+                                button.innerHTML = originalText;
+                                button.disabled = false;
+                            }, 2000);
+                        }, 1500);
+                    },
+                    (error) => {
+                        button.innerHTML = '❌ Location Access Denied';
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                            button.disabled = false;
+                        }, 2000);
+                    }
+                );
+            } else {
+                button.innerHTML = '❌ Location Not Supported';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 2000);
+            }
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('locationSearch');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredHotspots = hotspots.filter(hotspot => 
+                hotspot.name.toLowerCase().includes(searchTerm) ||
+                hotspot.address.toLowerCase().includes(searchTerm)
+            );
+            displayHotspots(filteredHotspots);
+            createMapMarkers(filteredHotspots);
+        });
+
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = e.target.value.toLowerCase();
+                if (searchTerm) {
+                    // Simulate search results
+                    const results = hotspots.filter(hotspot => 
+                        hotspot.address.toLowerCase().includes(searchTerm)
+                    );
+                    if (results.length > 0) {
+                        displayHotspots(results);
+                        createMapMarkers(results);
+                    } else {
+                        // Show all hotspots if no matches
+                        displayHotspots(hotspots);
+                        createMapMarkers(hotspots);
+                    }
+                }
+            }
+        });
+
+        // Dynamic typing effect for hero text
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                heroTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        setTimeout(typeWriter, 1000);
+
+        // Initialize hotspot locator when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeHotspotLocator();
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.querySelector('.submit-button');
+            const originalText = submitButton.textContent;
+            
+            // Show sending state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                query: document.getElementById('query').value
+            };
+            
+            // Simulate form submission
+            setTimeout(() => {
+                submitButton.textContent = '✅ Message Sent!';
+                submitButton.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                
+                // Reset form
+                this.reset();
+                
+                // Show success message
+                alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    submitButton.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 3000);
+                
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
